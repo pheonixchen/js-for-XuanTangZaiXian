@@ -1,0 +1,534 @@
+    // ==UserScript==
+    // @name        英语免修班
+    // @namespace   http://tampermonkey.net/
+    // @match       *://*.xuetangx.com/*
+    // @version     1.0
+    // @author      phoenix
+    // @description
+    // @description 1.答案收集 2.自动显示答案
+    // ==/UserScript==
+
+    (function(console){
+        console.save = function(data, filename){
+        if(!data) {
+        console.error('Console.save: No data')
+        return;
+        }
+        if(!filename) filename = 'console.json'
+        if(typeof data === "object"){
+        data = JSON.stringify(data, undefined, 4)
+        }
+        var blob = new Blob([data], {type: 'text/json'}),
+        e = document.createEvent('MouseEvents'),
+        a = document.createElement('a')
+        a.download = filename
+        a.href = window.URL.createObjectURL(blob)
+        a.dataset.downloadurl = ['text/json', a.download, a.href].join(':')
+        e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+        a.dispatchEvent(e)
+        }
+        })(console)
+
+        function count(o){
+            var t = typeof o;
+            if(t == 'string'){
+                    return o.length;
+            }else if(t == 'object'){
+                    var n = 0;
+                    for(var i in o){
+                            n++;
+                    }
+                    return n;
+            }
+            return false;
+    }
+
+setInterval(y=>{
+    T_ofhomework=document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.question > div > div.fuwenben").textContent
+},100)
+
+
+setInterval(y=>{document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.answer.showUntil > div.btnCon > span > span > button").textContent='输出答案'},100)
+        document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.answer.showUntil > div.btnCon > span > span > button").textContent='输出答案'
+var dictionnary = {
+    "1": "Using accurate language means making sure the words you have chosen are ___, in the correct word form, and are used in the appropriate context with other words.  A specificB correctC rightD concise",
+    "2": "Usually ___ could be used as subjects and objects A adverbsB adjectivesC verbsD nouns",
+    "3": "While learning English, we need to pay special attention to English ____, and make sure to take notes whenever we notice one different from our intuition.  A verbsB nounsC collocationsD prepositions",
+    "4": "Wordy expressions may include ____.  A clichéB there be sentence patternsC relative clausesD all of the above",
+    "5": "Building word networks is a great way to expand your vocabulary. ",
+    "6": "Learning words with related meanings, be it similar, opposite or more general or specific meanings, is indispensable for expanding vocabulary range. ",
+    "7": "Connotation indicates the inherent meaning of the word, while denotation is the ideas or qualities which it makes you think of. ",
+    "8": "Synonyms can be exchanged with each other.\n ",
+    "9": "A good strategy for avoiding monotony in using words is to learn word collocations. ",
+    "10": " The thesaurus is an excellent choice for learners to acquire synonyms or hyponyms for a concept. ",
+    "11": "Special attention should be paid to how verbs go with nouns, and prepositions go with verbs.  ",
+    "12": "Using concise language means making sure the words you have chosen are specific, in the correct word form, and are used in the appropriate context with other words.  ",
+    "13": "Whenever you are uncertain, consult the dictionary for word collocations. ",
+    "14": "The elegance of writing lies in conciseness. ",
+    "15": "Variety of sentences could be achieved by ____ A adding a second complete thoughtB adding a dependent thoughtC beginning with a special opening word or phraseD all of the above",
+    "16": "Phrases that can be used to start sentences do not include  A verb phrasesB -ed wordsC -ing wordsD -ly words",
+    "17": "The subject of the sentence should be the ___ of the sentence. A keyB topicC concernD action",
+    "18": "Choose ___ that describe the action. A adverbsB adjectivesC nounsD verbs",
+    "19": "Effective sentences guarantee effective writing. ",
+    "20": "English sentences are clearest, most forceful, and easiest to understand if they include complex grammatical structures. ",
+    "21": "Connotation indicates the inherent meaning of the word, while denotation is the ideas or qualities which it makes you think of. ",
+    "22": "Express the core of the message in the subject, verb, and completer. ",
+    "23": "Using a consistent point of view means we should always use the same subjects in a paragraph. ",
+    "24": " Use parallelism to express similar ideas, and vary your sentences to avoid monotony. ",
+    "25": "The subject has to be a concrete thing or person. ",
+    "26": "Nouns, verbs and even sentences could be used in a parallel struture. ",
+    "27": "When you add a second complete thought to a simple sentence, the result is a complex sentence. ",
+    "28": "When you add a dependent thought to a simple sentence, we get a complex sentence.  ",
+    "29": "_____ are the medium to carry main points that together develop the central idea/thesis in the essay.  A paragraphsB sentencesC subjectsD verbs",
+    "30": "Sentences in the paragraph should stick to the main idea through _____ and _____. A coherenceB cohesionC transitionD both A and B",
+    "31": "Cohesion is achieved through strategies such as ___ at the word or sentence level. A repetitionB pronounsC transitionsD all of the above",
+    "32": "The main idea of the paragraph is often expressed in the ___ of the paragraph. A beginning sentenceB thesisC topic sentenceD concluding sentence",
+    "33": "It is important that the paragraph should have a unified idea that holds the whole paragraph together ",
+    "34": "The main idea of the paragraph supports the essay’s central idea, and is related with ideas in the paragraphs preceding or following this paragraph. ",
+    "35": "Coherence is the connection of ideas at the idea level, which indicates a sense of the whole. ",
+    "36": "Coherence is the connection of ideas at the sentence level, which indicates a sense of flow. ",
+    "37": "Coherence is achieved through effective organization of ideas at the idea level ",
+    "38": "Information flow in a paragraph is essential for maintaining cohesion ",
+    "39": "Pronouns such as she, he, it, they, and who refer to and function as nouns.  ",
+    "40": "Repeating or restating the important words in a paragraph binds the sentences together and keeps the paragraph’s topic uppermost in readers’ minds. ",
+    "41": "Pronouns indicate the relationship between sentences, thus making the logic of flow clear to readers. ",
+    "42": "Common logical relationships indicated by connective words are exemplification, extension, cause & effect and contrast. ",
+    "43": "For proper nouns of specific places, we need to capitalize all the letters. ",
+    "44": "We need to capitalize proper nouns of job titles when they come immediately after the name. ",
+    "45": "Do not capitalize the names of conditions, syndromes and the like, but capitalize a personal name that forms part of such a term. ",
+    "46": "Acronym is pronounced as a single word. ",
+    "47": "We can divide words randomly in the writing. ",
+    "48": "One-syllable words are never divided. ",
+    "49": "The hyphen can go at the end of the first line or at the beginning of the second line in dividing words. ",
+    "50": "Always divide words between double consonants. ",
+    "51": "Do not divide proper names, abbreviations, or most numbers. ",
+    "52": "Spell out numbers that take no more than three words. Otherwise, use numerals for numbers. ",
+    "53": "Spell out numbers that start a sentence. ",
+    "54": "We can use abbreviations for courtesy titles. ",
+    "55": "The abbreviations for academic degrees can be used without a proper name. ",
+    "56": "Initialism can be pronounced as a series of letters. ",
+    "57": "The comma marks a slight pause or break in a sentence.  ",
+    "58": "Use a comma to separate items in a series. The final comma in a series is a must. ",
+    "59": "Use a comma after an introductory phrase. ",
+    "60": "The comma is still needed when if clause follows the main clause.  ",
+    "61": "Comma splice is caused when two independent clauses are joined only by a comma. ",
+    "62": "Use a comma to set off restrictive clauses and phrases. ",
+    "63": "A comma is needed to separate the day from the year if the order is month-day-year.  ",
+    "64": "We use _____at the end of a complete statement to introduce a list, a long quotation, or an explanation. A colonB commaC dashD semicolon",
+    "65": "A semicolon is used to connect two related independent clauses. ",
+    "66": "Conjunctive adverbs like however should be preceded by a _____ to link two coordinate clauses.  A commaB semicolonC colonD hyphen",
+    "67": "The semicolon is used to set off items in a series which contain internal commas. ",
+    "68": "Don't use exclamation mark in business or formal academic writing.  ",
+    "69": "Quotation marks are used to set off titles of _______.  A poemsB booksC playsD movies",
+    "70": "In American English, the general rule is that commas and ______always go inside the quotation marks.  A semicolonsB periods C colonsD dash",
+    "71": "Whether you choose the printed letters or emails depends on who you're communicating with, and the purpose of your correspondence. ",
+    "72": "Whether you choose the printed letters or emails depends on who you're communicating with, and the purpose of your correspondence. ",
+    "73": "Compared to a letter, a note is longer in length and simpler in form. ",
+    "74": "An email usually includes four parts: subject line, salutation, body and closings. ",
+    "75": "A note usually includes date, salutation, body, ending, complimentary close and signature. ",
+    "76": "\"Meeting time changed.\" In this email, the message is informative and short. ",
+    "77": "One-word subjects such as “Hi,” “Question,” or “FYI” in an email could give the reader an idea of how important your message is. ",
+    "78": "Write both names in salutation part in a email if you don’t know the gender. ",
+    "79": "When drafting an email, you don't have to remind the recipient who you are even though your previous contact has only been brief. ",
+    "80": "When writing the body part of an email, you should organize the information in the most logical order and include all the messages. ",
+    "81": "If you have written a long email, have a bulleted summary at the beginning of the email. ",
+    "82": "\"We are still awaiting your report on manuscript.\" \"May I remind you that we are still awaiting your report on manuscript?\" The first statement is more formal in email writing. ",
+    "83": "\"I’m sorry but I won’t be able to give you any feedback on your manuscript until next week.\" In this statement, the expression \"won't be able to\" makes the tone more formal and polite. ",
+    "84": "In an informal relatioship, some abbreviations such as thx (thanks) and rgds (regards) could be used in email writing. ",
+    "85": "\"You have sent us the wrong manuscript. \"\"You appear to have sent us the wrong manuscript.\" The first statement is more aggressive in email writing. ",
+    "86": "When you are writing to a friend in a note, the tone does not have to be polite.  ",
+    "87": "An invitation letter is written when a person intends to request others to attend an event or to be in response to any type of official announcements. ",
+    "88": "An invitation letter is written when a person intends to request others to attend an event or to be in response to any type of official announcements. ",
+    "89": "A letter usually includes seven parts: the heading, the inside address, the salutation, the body, the complimentary close, the signature, the typed signature. ",
+    "90": "The closing in a letter can be only put on the right-hand side of the page. ",
+    "91": "The expression \"Love,\" could be used as a complimentary close in a formal business letter. ",
+    "92": "The tone of the letter could be more friendly and personal with more informal and colloquial language, so you don't have to check the spelling and grammatical mistakes. ",
+    "93": "When writing a formal invitation letter, do not forget to put the name and address of the host, and the venue where the event is hosted. ",
+    "94": "“Thanks for putting in extra time to make our presentation a success.” In this letter, the writer refers to a specific event, which is more efficient in achieving the purpose of showing thanks. ",
+    "95": "You could end the thank-you letter with a closing line, your signature and the expression “Thanks again”. ",
+    "96": "You could send the appreciation letter or email anytime. ",
+    "97": "The tone and style of language in an invitation letter should be tailed according to the identity of your audience. ",
+    "98": "Keep the letter clear and detailed. A couple of paragraphs is typically sufficient. ",
+    "99": "Provide a reply card, e-mail address, or phone number for responding when writing an invitation letter. ",
+    "100": "You could write Enclosure(s) or Encl. for such things as a resume, a check, a receipt, etc. ",
+    "101": "The handwritten signature is placed between the complimentary close and the typed name of the writer.  ",
+    "102": "The heading gives the full address of the addressee and the date of the letter. ",
+    "103": "A letter of recommendation is a document written by a competent, trustworthy person. ",
+    "104": "A letter of recommendation is a document written by a competent, trustworthy person. ",
+    "105": "A good letter of recommendation can make the difference when it comes to choosing from the final candidates. ",
+    "106": "In the beginning of the recommendation letter, the writer firstly describes how the candidate is excellent.  ",
+    "107": "The letters of recommendation are usually longer and more detailed.  ",
+    "108": "Usually, a good letter of recommendation must be no longer than one page, but should not exceed two pages. ",
+    "109": "In order to be competitive, you could use one or two sentences that make the candidate stand out without having to explain and support by anecdotes in a recommendation letter.  ",
+    "110": "It is also important to “quantify” the qualities and the skills of the candidate in a recommendation letter. ",
+    "111": "If you say that the candidate has proven to have excellent leadership skills, you have to justify this sentence by narrating a fact that supports your claim in a recommendation letter. ",
+    "112": "The writer could discuss all the important skills and personality traits of the candidate in the recommendation letter. ",
+    "113": "If the candidate has some weak points, the best thing to do is to avoid mentioning it. ",
+    "114": "A recommendation letter in which good qualities are balanced with some weakness is sometimes more appreciable than an overly enthusiastic document. ",
+    "115": "It is important to conclude the recommendation letter with an enthusiastic sentence to support the candidate. ",
+    "116": "The referee does not have to express the willingness to help further in the recommendation letter. ",
+    "117": "The recommendation letter should avoid Irrelevant Information. ",
+    "118": "A reference is a written appraisal of the candidate or an oral appraisal via telephone. ",
+    "119": "In a complaint letter, you should ask the person or agency to offer solutions. Giving your opinion may harm your interests.  ",
+    "120": "\"I hope that you look into the matter and send my denture at the soonest.\" is good expression in a complaint letter.  ",
+    "121": "In an apology letter, don't mention the things you did so that the recervier won't feel hurt again.  ",
+    "122": "In a complaint letter, you should show your anger as much as possible.  ",
+    "123": "Salutation should be friendly instead of being formal.  ",
+    "124": "In a complaint letter, \"I bought a box of floss some day in July in one of your shops downtown\" is not a detailed enough as key information. ",
+    "125": "In an apology letter, you can give a few excuses so that the receiver can better understand you and forgive you more easily. ",
+    "126": "Say sorry at the beginning and the end of an apology letter. ",
+    "127": "Which of the following closing is the best choice for a formal complaint letter? A Best, \nLewis KnightB Truly, \nLewis KnightC Love, \nLewis KnightD Sincerely, \nLewis Knight",
+    "128": "Which is the best way to remind the receiver of a complaint letter to check the attached document? A Enclosed are copies of the receipts.B Here are the few things I mentioned.C You can download the photos by yourself.D Can you see the little envelop in the upper left coner? That's the copy.",
+    "129": "Now you are going to apologize to a client for arriving late for your last meeting. Please choose the best way to say you are sorry. A Sorry for being late yesterday for our meeting.B I knew I should have left for our meeting earlier yesterday. Sorry.C Please accept my apologies for arriving late yeaterday.D I'm so sorry for being late. I truly am!",
+    "130": "Which of the following is the best way to give a reason for being late? A The little boy was bleeding. I couldn't watch him die, could I?B The little boy was bleeding, and I had to drive him to a clinic.C How could I watch the little boy bleeding and do nothing?D The little boy was bleeding. I couldn't stand there watching.",
+    "131": "Which of the following is not a key element in an apology letter? A Give a reason for wrong doing.B Own the mistake and state the mistake.C Offer a solution to fix the problem.D Say you are sorry.",
+    "132": "Which of the following is not a key element in an complaint letter? A Complain about the product again and again to make sure the receiver know how serious the problem is. B Avoid anger.C State exactly what outcome you want or offer possible solutions.D Include your contact information so that the receiver knows how to get in touch with you.",
+    "133": "In a letter of suggestion, you can insult the recipient to express your anger. ",
+    "134": "In a letter of suggestion, you can insult the recipient to express your anger. ",
+    "135": "In a letter of refusal, you’d better make up detailed reason why you have to say no. ",
+    "136": "A letter of refusal shall begin with a few words or a sentence to express your gratitude to the one who have invited you or given you the offer. ",
+    "137": "In comparison with a business refusal, a personal refusal can go without analyzing the situation and offer reasons for your suggestion. ",
+    "138": "It is not polite so send a refusal via mailbox. ",
+    "139": "In a suggestion letter, you must always avoid expressing your ideas straightforwardly. ",
+    "140": "In a letter of suggestion, you can use strong language to show that you are really eager to persuade the recipient. ",
+    "141": "Confusion shall be avoided in a letter of suggestion. ",
+    "142": "When you finish a draft letter, read it thoroughly and check for mistakes. ",
+    "143": "In most cases, writing a letter of refusal is better than keeping your decision to yourself. ",
+    "144": "Longer refusal are preferred, since they contain more details and are considered as more sincere. ",
+    "145": "In a letter of refusal, you may or may not offer other choices to the receiver. ",
+    "146": "Which of the following letters can be informal? A A suggestion to your superordinateB A refusal to your business partnerC A refusal to your clientD A suggestion to one of your close friends.",
+    "147": "You are writing a letter of suggestion to James Blanton, your professor. Which one of the following salutations is proper? A Hi, Jim.B Dear Professor Jimmy BlantonC Dear Professor BlantonD Dear Jimmy Blanton",
+    "148": "Regardless of target school or employment, you may choose any resume template. ",
+    "149": "Regardless of target school or employment, you may choose any resume template. ",
+    "150": "In spite of a summary of your experiences, a resume is ideally one or two pages.   ",
+    "151": "In order to demonstrate your qualifications and competences, you should list all your information and experiences.  ",
+    "152": "Writing a resume is a process of filling your own information into a template. ",
+    "153": "A chronological resume is good choice for a recent graduate student.  ",
+    "154": "If you have varied working experiences or gaps in career, a functional resume is your best choice. ",
+    "155": "Experiences and qualifications can be listed as fragmented sentences with action verbs.  ",
+    "156": "When listing educational experiences, you should arrange them in reverse chronological order and based on the relevance. ",
+    "157": "Statements with strong accomplishments and results are much more competitive than plain descriptions. ",
+    "158": "In the objective section, you should state your target employment or position as much as possible.  ",
+    "159": "When applying to graduate schools, your relevant involvement at college such as volunteering activities, shadowing, or internships can be added to strengthen your competitiveness.  ",
+    "160": "Error free is a fundamental requirement for any resume.  ",
+    "161": "Different sections in a resume should be divided with headings in bold type, a space or a horizontal line. ",
+    "162": "Font type and size in a resume is the matter of personal preference. ",
+    "163": "A cover letter, as a complement to your resume, is commonly a one-page document.  ",
+    "164": "A cover letter, as a complement to your resume, is commonly a one-page document.  ",
+    "165": "Different from a resume, a cover letter should be written in the first person. ",
+    "166": "Apart from your purpose of writing the letter, you should briefly state your qualification in the initial paragraph.  ",
+    "167": "A cover letter has no difference with other formal letters in terms of the sections and contents.  ",
+    "168": "As a formal business correspondence, a cover letter should begin with respectful salutations.  ",
+    "169": "If you don’t know whom you should contact, you may choose “To Whom It May Concern” in the salutation. ",
+    "170": "In the body part, you may restate all qualifications and experiences mentioned in your resume.  ",
+    "171": "In order to introduce yourself fully, you’d better state all your information in a large block of text with all details. ",
+    "172": "In order to look professionally, you demonstrate your relevant qualifications and skills only.  ",
+    "173": "Tangible examples can help you showcase your strengths and abilities. ",
+    "174": "In the last paragraph, apart from expressing thanks, you should show your interest in the major and position again and briefly restate how qualified you are for them.  ",
+    "175": "In your cover letter, complimentary closing can be casual. ",
+    "176": "If you send the cover letter by email, you don’t need to put your signature on it. ",
+    "177": "You’d better left-align all contents in the cover letter rather than using justifications.  ",
+    "178": "A personal statement is an important application document to list all your attributes and qualifications in fragmented sentences.  ",
+    "179": "A personal statement is an important application document to list all your attributes and qualifications in fragmented sentences.  ",
+    "180": "Although there are general questions for all applicants to guide statement writing, your personal statement should focus on your suitability and uniqueness. ",
+    "181": "Admission officer pay much more attention to your academic qualifications in the personal statement.  ",
+    "182": "When it comes to the contents in the personal statement, you may talk about your desire for the university or the program, your strengths, academic qualifications and your study plan. ",
+    "183": "A strong personal statement is an essay with facts only to showcase your prominent abilities.  ",
+    "184": "When you state you strong interest in the major or position you are applying for, don’t speak ill of other majors or professions. ",
+    "185": "You should showcase your strengths with solid examples. ",
+    "186": "In terms of your involvement at college, a large quantity of what activities you participated in may be helpful. ",
+    "187": "\nA high-quality summary is complete, concise, coherent, and （   ）.  A fluentB independentC rightD accurate",
+    "188": " The intention of a summary is to convey the essence of a text without the surrounding examples and (        ). A topic sentencesB themeC conclusionD environments",
+    "189": "When read the passage and highlight the main information of each part of the article, you should (   ) A skim the passage and try to determine what type of text it isB focus on the gist of each part or paragraph and distinguish them from less important contentC underline or take notes of main points in each part or paragraph and key support points for the main topic, but don’t include minor detailD all of the above",
+    "190": "Each paragraph of a summary should focus on a or a couple of (      ) ideas. A coreB mainC concreteD important",
+    "191": " A summary restates the most important points of the original passage and may distort some of the former meanings when necessary. ",
+    "192": "A summary  is intended to highlight objectively the gist and shouldn’t include your own interpretations or opinions. ",
+    "193": "A summary must not be a patchwork of coherent phrases and sentences quoted from the original passage.  ",
+    "194": "When writing a summary, you should pay attention to its subheadings if it has any.\n ",
+    "195": "When writing a summary, you should phrase the main information extracted from the original passage coherently. ",
+    "196": " Each paragraph of  a summary should focus on a couple of ideas. ",
+    "197": "Write short sentences for each paragraph in your own words in light of the gist you have underlined. ",
+    "198": "Use connection phrases to link up the sentences you have written based on the original order and content.  ",
+    "199": "You have to make sure essential information is included and it follows the logical order of the original passage. ",
+    "200": "You should compress wordy descriptions, and omit examples or details. "
+}
+var dictionnary_answer = {
+    "1": "A",
+    "2": "D",
+    "3": "C",
+    "4": "D",
+    "5": "√",
+    "6": "√",
+    "7": "X",
+    "8": "X",
+    "9": "X",
+    "10": "√",
+    "11": "√",
+    "12": "X",
+    "13": "√",
+    "14": "√",
+    "15": "D",
+    "16": "A",
+    "17": "B",
+    "18": "D",
+    "19": "√",
+    "20": "X",
+    "21": "X",
+    "22": "√",
+    "23": "X",
+    "24": "√",
+    "25": "X",
+    "26": "√",
+    "27": "X",
+    "28": "√",
+    "29": "A",
+    "30": "D",
+    "31": "D",
+    "32": "C",
+    "33": "√",
+    "34": "√",
+    "35": "√",
+    "36": "X",
+    "37": "√",
+    "38": "X",
+    "39": "√",
+    "40": "√",
+    "41": "X",
+    "42": "√",
+    "43": "X",
+    "44": "X",
+    "45": "√",
+    "46": "√",
+    "47": "X",
+    "48": "√",
+    "49": "X",
+    "50": "X",
+    "51": "√",
+    "52": "X",
+    "53": "√",
+    "54": "X",
+    "55": "√",
+    "56": "√",
+    "57": "√",
+    "58": "X",
+    "59": "√",
+    "60": "X",
+    "61": "√",
+    "62": "X",
+    "63": "√",
+    "64": "A",
+    "65": "√",
+    "66": "B",
+    "67": "√",
+    "68": "√",
+    "69": "A",
+    "70": "B",
+    "71": "√",
+    "72": "√",
+    "73": "X",
+    "74": "√",
+    "75": "√",
+    "76": "X",
+    "77": "X",
+    "78": "√",
+    "79": "X",
+    "80": "X",
+    "81": "√",
+    "82": "X",
+    "83": "√",
+    "84": "√",
+    "85": "√",
+    "86": "X",
+    "87": "√",
+    "88": "√",
+    "89": "√",
+    "90": "X",
+    "91": "X",
+    "92": "X",
+    "93": "√",
+    "94": "√",
+    "95": "√",
+    "96": "X",
+    "97": "√",
+    "98": "X",
+    "99": "√",
+    "100": "√",
+    "101": "√",
+    "102": "X",
+    "103": "√",
+    "104": "√",
+    "105": "√",
+    "106": "X",
+    "107": "X",
+    "108": "√",
+    "109": "X",
+    "110": "√",
+    "111": "√",
+    "112": "X",
+    "113": "X",
+    "114": "√",
+    "115": "√",
+    "116": "X",
+    "117": "√",
+    "118": "√",
+    "119": "X",
+    "120": "√",
+    "121": "X",
+    "122": "X",
+    "123": "X",
+    "124": "√",
+    "125": "X",
+    "126": "√",
+    "127": "D",
+    "128": "A",
+    "129": "C",
+    "130": "B",
+    "131": "A",
+    "132": "A",
+    "133": "X",
+    "134": "X",
+    "135": "X",
+    "136": "√",
+    "137": "X",
+    "138": "X",
+    "139": "X",
+    "140": "X",
+    "141": "√",
+    "142": "√",
+    "143": "√",
+    "144": "X",
+    "145": "√",
+    "146": "D",
+    "147": "C",
+    "148": "X",
+    "149": "X",
+    "150": "√",
+    "151": "X",
+    "152": "X",
+    "153": "X",
+    "154": "√",
+    "155": "√",
+    "156": "√",
+    "157": "√",
+    "158": "X",
+    "159": "√",
+    "160": "√",
+    "161": "√",
+    "162": "X",
+    "163": "√",
+    "164": "√",
+    "165": "√",
+    "166": "√",
+    "167": "X",
+    "168": "√",
+    "169": "X",
+    "170": "X",
+    "171": "X",
+    "172": "X",
+    "173": "√",
+    "174": "√",
+    "175": "X",
+    "176": "X",
+    "177": "√",
+    "178": "X",
+    "179": "X",
+    "180": "√",
+    "181": "X",
+    "182": "√",
+    "183": "X",
+    "184": "√",
+    "185": "√",
+    "186": "X",
+    "187": "B",
+    "188": "D",
+    "189": "D",
+    "190": "A",
+    "191": "X",
+    "192": "√",
+    "193": "X",
+    "194": "√",
+    "195": "X",
+    "196": "X",
+    "197": "X",
+    "198": "X",
+    "199": "√",
+    "200": "X"
+}
+numofT=count(dictionnary)
+var num = 1
+var mode = prompt("脚本模式","（输入1,2或3,1为答案收集，2为自动出答案,3为答案输出）")
+
+function task1(){
+    var a = document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.tabbar > span.total").textContent.substring(1)
+    var b = document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.tabbar > span.curent").textContent
+        if(a != b){
+            dictionnary[num]=document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.question > div").textContent
+            if(document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.answer.showUntil > div.answerCon > div > div > span").classList[4]=='true'){
+                dictionnary_answer[num]='√'
+            }else if(document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.answer.showUntil > div.answerCon > div > div > span").classList[4]==undefined){
+                if(dictionnary_answer[num]=document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.answer.showUntil > div.answerCon > div > div > span").textContent==''){
+                    dictionnary_answer[num]='X'
+                }else{
+                    dictionnary_answer[num]=document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.answer.showUntil > div.answerCon > div > div > span").textContent
+                }
+            }
+            num=num+1
+            document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.tabbar > i.iconfont.right.unselectable").click()
+            yes = true
+        }else if(a == b&&yes==true){
+            dictionnary[num]=document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.question > div").textContent
+            if(document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.answer.showUntil > div.answerCon > div > div > span").classList[4]=='true'){
+                dictionnary_answer[num]='√'
+            }else if(document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.answer.showUntil > div.answerCon > div > div > span").classList[4]==undefined){
+                if(dictionnary_answer[num]=document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.answer.showUntil > div.answerCon > div > div > span").textContent==''){
+                    dictionnary_answer[num]='X'
+                }else{
+                    dictionnary_answer[num]=document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.answer.showUntil > div.answerCon > div > div > span").textContent
+                }
+            }
+            num=num+1
+            document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.tabbar > i.iconfont.right.unselectable").click()
+            yes=false
+        }}
+function task(i) {
+   setTimeout( function () {
+    b='#app > div > div.app-main_.appMain > div.courseActionLesson > div.courseAction_lesson_left.lesson_left > div.list > div > ul:nth-child('+i+') > li.detail > ul > li > div > span'
+    document.querySelector(b).click()//点击此章节的练习
+}, 20000 * i);
+}
+
+if(mode=='1'){
+    alert('答案收集')
+    nchapter = prompt("输入章节总数")
+    for (let i=0; i<=nchapter; i++) {
+        task(i)
+    }
+    setInterval(y=>{task1()},1000)
+}else if(mode=='2'){
+    alert('显示答案')
+}else if(mode=='3'){
+    alert('答案输出')
+    temp1 = dictionnary
+    console.save(temp1, "T_KU.json")
+    temp2 = dictionnary_answer
+    console.save(temp2, "answer.json")
+}else{
+    alert('重新输入')
+}
+
+setInterval(y=>{document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.answer.showUntil > div.btnCon > span > span > button").onclick=function(){
+    temp1 = dictionnary
+    console.save(temp1,"T_KU.json")
+    temp2 = dictionnary_answer
+    console.save(temp2,"answer.json")
+}},100)
+
+setInterval(y=>{
+    if(mode==2){document.querySelector("#app > div > div.app-main_.appMain > div.courseActionLesson > div.lesson_rightcon > div.courseActionExamine.content_right > div.content > div.question > div > div.fuwenben").onclick=function(){
+        for(aa=1;aa<=numofT;aa++){
+            if(dictionnary[aa].includes(T_ofhomework)){
+                alert(dictionnary[aa]+'  \n答案：'+dictionnary_answer[aa])
+            }
+        }
+    }}
+},100)
